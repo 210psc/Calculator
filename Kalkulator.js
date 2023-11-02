@@ -18,6 +18,7 @@ const historyBtn = document.querySelector('.history-btn');
 
 
 
+
 operatorsButtons.forEach((button) => button.addEventListener('click', operate));
 
 equalsButton.addEventListener('click', showResult);
@@ -34,6 +35,7 @@ historyBtn.addEventListener("click", clearHistory);
 let result = '';
 
 
+
 function displayNumbers () {
     if(this.textContent === '.' && currentNumber.innerHTML.includes('.'))
     return;
@@ -45,8 +47,7 @@ function displayNumbers () {
     return;
     if(this.textContent === '0' && currentNumber.innerHTML === '0')
     return;
-    if(previousNumber.innerHTML.includes('+') || previousNumber.innerHTML.includes('-') || previousNumber.innerHTML.includes('*') || previousNumber.innerHTML.includes(':') || previousNumber.innerHTML.includes('^'))
-    return previousNumber.innerHTML = '';
+
  
 
 
@@ -77,7 +78,9 @@ function operate () {
     }
 
     previousNumber.innerHTML = currentNumber.innerHTML;
+    if(mathSign.innerHTML === '' && previousNumber.innerHTML !== ''){
     mathSign.innerHTML = this.textContent;
+}
     currentNumber.innerHTML = '';
 }
 
@@ -90,6 +93,8 @@ function showResult() {
     let operator = mathSign.innerHTML;
 
 
+
+   
     
     if(currentNumber.innerHTML !== '-'){
     switch(operator) {
@@ -119,6 +124,7 @@ function showResult() {
     currentNumber.innerHTML = '';
     previousNumber.innerHTML = '';
     mathSign.innerHTML = '';
+    clearScreen()
     }
 }
 
@@ -128,6 +134,7 @@ function addToHistory () {
     newHistoryItem.innerHTML = `${previousNumber.innerHTML} ${mathSign.innerHTML} ${currentNumber.innerHTML} = ${result}`
     newHistoryItem.classList.add('history-item');
     calculatorHistory.appendChild(newHistoryItem)
+    clearScreen()
 }
 
 
@@ -136,6 +143,7 @@ function clearScreen () {
     currentNumber.innerHTML = '';
     previousNumber.innerHTML = '';
     mathSign.innerHTML = '';
+
 }
 
 function clearHistory () {
